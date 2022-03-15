@@ -1,0 +1,114 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+}
+.app{
+    color:black;
+    display: grid;
+    grid-template-areas:
+    "app_nav app_content app_content"
+    "app_bottom_bar app_bottom_bar app_bottom_bar";
+    grid-template-columns: 240px 1fr;
+    grid-template-rows: 90% 10%;
+    height: 100vh;
+    width: 100%;
+    font-family: spotify-circular, Helvetica, Arial, sans-serif;
+}
+.app_nav{
+    display: flex;
+    flex-direction: column;
+    grid-area:app_nav ;
+    background-color: black;
+}
+.spotify_logo{
+    color: white;
+    width: 130px;
+    height: 40px;
+}
+.nav_element{
+    margin: 25px 25px;
+}
+.nav_element li a{
+    margin-top: 10px;
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+}
+.nav_element li{
+    margin-top: 10px;
+}
+.app_content{
+    display: flex;
+    flex-direction: column;
+    grid-area: app_content;
+    background-color: blueviolet;
+}
+.app_content h1{
+    padding: 25px 25px;
+}
+.content_underline{
+    width: 100%;
+    border-bottom: 2px solid black;
+}
+.content_music_list{
+    overflow-y: scroll; 
+    display: flex;
+    flex-wrap: wrap;
+}
+.content_music_list_item{
+    line-height: 0.5;
+    margin: 30px 30px;
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    color: white;
+    text-decoration: none;
+}
+.album_photo{
+    width: 200px;
+    height: 200px;
+}
+
+.app_bottom_bar{
+    padding: 0 auto;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    display: flex;
+    grid-area: app_bottom_bar;
+    background-color: rgb(214, 226, 43);
+}
+.audio_bar_control{
+    width: 300px;
+}
+.app_bottom_bar p{
+    margin-top: 10px;
+    font-size: 20px;
+    color: black;
+    text-decoration: none;
+}
+.app_content p{
+    margin: 10px 20px;
+    font-size: 20px;
+    color: black;
+    text-decoration: none;
+}
+.search_bar{
+    padding-left: 5px;
+    border: none;
+    border-radius: 5px;
+    width: 70%;
+    height: 50px;
+    margin: 30px 30px;
+}
+::-webkit-scrollbar{
+    background-color: black;
+}
+::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    width: 80%;
+    background-color:rgb(214, 226, 43);
+}
