@@ -31,13 +31,13 @@
 .nav_element{
     margin: 25px 25px;
 }
-.nav_element li a{
+.nav_element_item_link{
     margin-top: 10px;
     font-size: 20px;
     color: white;
     text-decoration: none;
 }
-.nav_element li{
+.nav_element_item{
     margin-top: 10px;
 }
 .app_content{
@@ -46,7 +46,7 @@
     grid-area: app_content;
     background-color: blueviolet;
 }
-.app_content h1{
+.title_item{
     padding: 25px 25px;
 }
 .content_underline{
@@ -59,7 +59,6 @@
     flex-wrap: wrap;
 }
 .content_music_list_item{
-    line-height: 0.5;
     margin: 30px 30px;
     display: flex;
     flex-direction: column;
@@ -67,11 +66,15 @@
     color: white;
     text-decoration: none;
 }
+.app_content_search_resulte{
+    font-size: 20px;
+    font-weight: 400;
+    margin: 25px;
+}
 .album_photo{
     width: 200px;
     height: 200px;
 }
-
 .app_bottom_bar{
     padding: 0 auto;
     align-items: center;
@@ -84,13 +87,7 @@
 .audio_bar_control{
     width: 300px;
 }
-.app_bottom_bar p{
-    margin-top: 10px;
-    font-size: 20px;
-    color: black;
-    text-decoration: none;
-}
-.app_content p{
+.text_item{
     margin: 10px 20px;
     font-size: 20px;
     color: black;
