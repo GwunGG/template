@@ -15,12 +15,12 @@
     grid-template-rows: 90% 10%;
     height: 100vh;
     width: 100%;
-    font-family: spotify-circular, Helvetica, Arial, sans-serif;
+    font-family: "Lato", Helvetica, Arial, sans-serif;
 }
 .app_nav{
     display: flex;
     flex-direction: column;
-    grid-area:app_nav ;
+    grid-area: app_nav;
     background-color: black;
 }
 .spotify_logo{
@@ -29,7 +29,7 @@
     height: 40px;
 }
 .nav_element{
-    margin: 25px 25px;
+    margin: 25px;
 }
 .nav_element_item_link{
     margin-top: 10px;
@@ -47,7 +47,7 @@
     background-color: blueviolet;
 }
 .title_item{
-    padding: 25px 25px;
+    padding: 25px;
 }
 .content_underline{
     width: 100%;
@@ -59,7 +59,7 @@
     flex-wrap: wrap;
 }
 .content_music_list_item{
-    margin: 30px 30px;
+    margin: 30px;
     display: flex;
     flex-direction: column;
     font-size: 18px;
@@ -69,14 +69,14 @@
 .app_content_search_resulte{
     font-size: 20px;
     font-weight: 400;
-    margin: 25px;
+    margin: 5px 25px;
 }
 .album_photo{
     width: 200px;
     height: 200px;
 }
 .app_bottom_bar{
-    padding: 0 auto;
+    padding: 0;
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -99,13 +99,16 @@
     border-radius: 5px;
     width: 70%;
     height: 50px;
-    margin: 30px 30px;
+    margin: 30px;
+}
+.library_title{
+    margin: 30px;
+    border-bottom: 2px solid black;
 }
 ::-webkit-scrollbar{
     background-color: black;
 }
 ::-webkit-scrollbar-thumb{
     border-radius: 10px;
-    width: 80%;
     background-color:rgb(214, 226, 43);
 }
