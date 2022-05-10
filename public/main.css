@@ -54,7 +54,13 @@
     display: flex;
     flex-wrap: wrap;
 }
+.content_music_list_sec{
+    display: flex;
+    flex-wrap: wrap;
+}
 .content_music_list_item{
+    width: 250px;
+    height: 400px;
     margin: 30px;
     display: flex;
     flex-direction: column;
@@ -63,8 +69,9 @@
     text-decoration: none;
 }
 .app_content_search_resulte{
-    font-size: 20px;
-    font-weight: 400;
+    flex-basis: 100%;
+    font-size: 26px;
+    font-weight: 700;
     margin: 5px 25px;
 }
 .app_bottom_bar{
@@ -79,6 +86,44 @@
 .audio_bar_control{
     height: 100px;
     width: 300px;
+}
+.search_btn{
+    height: 55px;
+    width: 10%;
+    font-size: 22px;
+    margin-top: 5px;
+    border-radius: 5px; 
+}
+.add_btn{
+    align-self: center;
+    height: 50px;
+    width: 60%;
+    font-size: 22px;
+    margin-top: 5px;
+    border-radius: 5px; 
+}
+.delete_btn{
+    align-self: center;
+    height: 50px;
+    width: 60%;
+    font-size: 22px;
+    margin-top: 5px;
+    border-radius: 5px; 
+}
+.delete_btn:hover{
+    background-color: #000;
+    color: #fff;
+    transition: 0.5s;
+}
+.add_btn:hover{
+    background-color: #000;
+    color: #fff;
+    transition: 0.5s;
+}
+.search_btn:hover{
+    background-color: #000;
+    color: #fff;
+    transition: 0.5s;
 }
 .text_item{
     margin: 10px 20px;

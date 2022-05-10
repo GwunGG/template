@@ -19,81 +19,26 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div class="app">
       <nav class="app_nav">
-        <a href="index.html" class="nav_element">
+        <a href="/#" class="nav_element">
           <img src="logo.svg" alt="spotify__logo">
         </a>
         <ul class="nav_element">
           <li class="nav_element_item">
-            <a href="index.html" class="nav_element_item_link">Моя библиотека</a>
-          </li>
-          <li class="nav_element_item">
-            <a href="search.html" class="nav_element_item_link">Поиск</a>
+            <a href="#" class="nav_element_item_link">Библиотека музыки</a>
           </li>
         </ul>
       </nav>
       <div class="app_content">
-        <h1 class="library_title">Моя библиотека</h1>
+        <h1 class="title_item">Поиск</h1>
+        <form>
+          <input type="text" placeholder="Search" class="search_bar" id="seacrh_input">
+          <button type="button" class="search_btn" id="search_btn">Поиск</button>
+        </form>
         <div class="content_music_list">
-          <div class="content_music_list_item">
-            <img src="oblojka.jpg" alt="album_photo" width="200px" height="200px">
-            <p>Имя исполнителя</p>
-            <p>Название песни</p>
-            <p>Альбом</p>
-          </div>
-          <div class="content_music_list_item">
-            <img src="oblojka.jpg" alt="album_photo" width="200px" height="200px">
-            <p>Имя исполнителя</p>
-            <p>Название песни</p>
-            <p>Альбом</p>
-          </div>
-          <div class="content_music_list_item">
-            <img src="oblojka.jpg" alt="album_photo" width="200px" height="200px">
-            <p>Имя исполнителя</p>
-            <p>Название песни</p>
-            <p>Альбом</p>
-          </div>
-          <div class="content_music_list_item">
-            <img src="oblojka.jpg" alt="album_photo" width="200px" height="200px">
-            <p>Имя исполнителя</p>
-            <p>Название песни</p>
-            <p>Альбом</p>
-          </div>
-          <div class="content_music_list_item">
-            <img src="oblojka.jpg" alt="album_photo" width="200px" height="200px">
-            <p>Имя исполнителя</p>
-            <p>Название песни</p>
-            <p>Альбом</p>
-          </div>
-          <div class="content_music_list_item">
-            <img src="oblojka.jpg" alt="album_photo" width="200px" height="200px">
-            <p>Имя исполнителя</p>
-            <p>Название песни</p>
-            <p>Альбом</p>
-          </div>
-          <div class="content_music_list_item">
-            <img src="oblojka.jpg" alt="album_photo" width="200px" height="200px"> 
-            <p>Имя исполнителя</p>
-            <p>Название песни</p>
-            <p>Альбом</p>
-          </div>
-          <div class="content_music_list_item">
-            <img src="oblojka.jpg" alt="album_photo" width="200px" height="200px">
-            <p>Имя исполнителя</p>
-            <p>Название песни</p>
-            <p>Альбом</p>
-          </div>
-          <div class="content_music_list_item">
-            <img src="oblojka.jpg" alt="album_photo" width="200px" height="200px">
-            <p>Имя исполнителя</p>
-            <p>Название песни</p>
-            <p>Альбом</p>
-          </div>
-          <div class="content_music_list_item">
-            <img src="oblojka.jpg" alt="album_photo" width="200px" height="200px">
-            <p>Имя исполнителя</p>
-            <p>Название песни</p>
-            <p>Альбом</p>
-          </div>
+          <p class="app_content_search_resulte">Результат поиска</p>
+          <div id="music_list" class="content_music_list_sec"></div>
+          <p class="app_content_search_resulte">То, что понравилось</p>
+          <div id="libraryStorage" class="content_music_list_sec"></div>
         </div>
       </div>
       <div class="app_bottom_bar">
@@ -103,5 +48,6 @@
         </audio> 
       </div>
     </div>
+    <script src="main.js"></script>
   </body>
 </html>
