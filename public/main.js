@@ -1,9 +1,10 @@
-//ИМПОРТ КЛАССОВ, ПОЧЕМУ ТО, СДЕЛАТЬ НЕ ВЫШЛО. бЫЛО ПЕРЕПРОБЫВАНО ОЧЕНЬ МНОГО. ТАК ЧТО, ИЗВИНИТЕ, НО ОНИ ЗДЕСЬ
+//Импорт классов, почему то, сделать не вышло, так что они все здесь
 const search_btn = document.getElementById('search_btn');
 const parentBlock = document.getElementById('music_list');
 const libraryStorage = document.getElementById('libraryStorage');
-//ЗАПРОС НА СЕРВЕР
+let state = '';
 
+//Запрос на сервер
 class HttpRequests {
     //полная ссылка с методом
     _requestURL = '';
@@ -17,9 +18,9 @@ class HttpRequests {
         this.api = api;
     }
     //Делает запрос на сервер
-    async sendRequests(url, data) {
+    async sendRequests(data) {
         try{
-            this.response = await fetch(url, {
+            this.response = await fetch(this.requestURL, {
                 method: data.method,
                 body: data.body
             });
@@ -29,33 +30,36 @@ class HttpRequests {
             console.error(error)
         }
     }
-    /*
-        Осуществляет поиск трека
-        {string} track - название трека
-    */
+    /**
+     *   Осуществляет поиск трека
+     *@param  {string} track - название трека
+     */
     async searchTrack(track) {
+        if(!track)throw new Error("Введите корректное название")
         this.requestURL = `${this.api}/2.0/?method=track.search&track=${track}&api_key=${this.apiKey}&limit=20&format=json`;
-        return await this.sendRequests(this.requestURL, { method: "GET" });
+        return await this.sendRequests({ method: "GET" });
     }
 }
-// ОТРИСОВКА ДАННЫХ С СЕРВЕРА
+// Отрисовка данных с сервера
 class Track {
     track ={
         image: '',
         treckname: '',
         author: ''
     }
+    // тип кнопки, "удалить" или "добавить"
+    buttonType='';
 
     constructor(track) {
         this.track = track;
     }
-    // шаблон отрисовки
+    /** 
+    * шаблон отрисовки
+    */ 
     itemTemplate(track,buttonName){
         this.track = track;
-        // тип кнопки, "удалить" или "добавить"
-        let buttonType = '';
         // создание ID
-        if(buttonName=='Удалить'){
+        if(buttonName==='Удалить'){
             this.deleteId = `${this.track.treckname}${this.track.author}${this.track.author}`;
             this.buttonType = 'delete_btn'
         }else{
@@ -63,7 +67,16 @@ class Track {
             this.buttonType = 'add_btn'
         }
         this.id = `${this.track.treckname}${this.track.author}`;
-        // отрисовка данных
+        /**
+         *Отрисовка данных
+         *@param {string} deleteId - ID по которому удалется элемент
+         *@param {string} src - ссылка на картинку. В случае, если lastfm не даёт свою картинку, то используется затычка
+         *@param {string} treckname - название трека
+         *@param {string} author - автор трека
+         *@param {string} buttonType - тип кнопки: удалить или добавить
+         *@param {string} id - id кнопки, по которому добавляется трек
+         *@param {string} buttonName - название кнопки:  "Удалить" или "Добавить"
+         */ 
         return `
         <div class="content_music_list_item" id='${this.deleteId}'}>
             <img src=${this.track.image} width ="250px" height ="250px">
@@ -84,55 +97,74 @@ class Track {
     }
 }
 //ПОЛУЧЕНИЕ ДАННЫХ С СЕРВЕРА И ИХ ОТРИСОВКА
-search_btn.addEventListener('click', async (event) => {
+/**
+ * 
+ * @param {string} item  - кнопка, по которой происходи удаление
+ * @returns 
+ */
+const deletElementCallback= (item) => () => {
+    item.removeEventListener('click', deletElementCallback)
+    state.filter((el) => {
+        if (el.id === item.id) {
+            const delIp = document.getElementById(el.deleteId);
+            delIp.remove();
+        }
+    });
+};
+/**
+ * 
+ * @param {string} item - кнопка, по которой происходи удаление
+ * @returns 
+ */
+const addElementCallback =(item) =>()=> {
+    item.removeEventListener('click', addElementCallback)
+    const newTrack = new Track();
+    state.filter((el) => {
+        if (el.id === item.id) {
+            let imgURL = el.image[2]['#text'];
+            if (!imgURL) {
+                imgURL = "o.png";
+            }
+            el.deleteId = `${el.name}${el.artist}${el.artist}`;
+            libraryStorage.insertAdjacentHTML('beforeend', newTrack.dupTrack({ image: imgURL, treckname: el.name, author: el.artist }));
+            //Реализация удаления элемента из раздела "Понравилось"
+            let delete_btn = document.querySelectorAll('.delete_btn');
+            delete_btn.forEach(item => {
+                item.addEventListener('click', deletElementCallback(item));
+            });
+        }
+    });
+};
+
+const searchEvent = async () => {
+    search_btn.removeEventListener('click', searchEvent)
     parentBlock.innerHTML = "";
     const api = 'https://ws.audioscrobbler.com';
     const apiKey = '0103c57ba29decd75b019530b877f1f2';
     const requests = new HttpRequests(apiKey, api);
-    const track = document.getElementById('seacrh_input').value;
+    const trackValue = document.getElementById('seacrh_input').value;
     try {
-        const data = await requests.searchTrack(track);
-            data.results.trackmatches.track.map((el) => {
-            el.id = `${el.name}${el.artist}`;
-            let imgURL = el.image[2]['#text'];
-            if (!imgURL) {
+        const data = await requests.searchTrack(trackValue); 
+        const {track} = data.results.trackmatches;
+        if(!track.length) throw new Error('Трек не найден');
+        track.map((el) => {
+        el.id = `${el.name}${el.artist}`;
+        let imgURL = el.image[2]['#text'];
+        if (!imgURL) {
                 imgURL = "o.png";
             }
             const newTrack = new Track();
             parentBlock.insertAdjacentHTML('beforeend', newTrack.addTrack({ image: imgURL, treckname: el.name, author: el.artist }));
         });
-        const state = data.results.trackmatches.track;
+        state = track;
         let add_btn = document.querySelectorAll('.add_btn');
-        //РЕАЛИЗАЦИЯ ДОБАВЛЕНИЯ ЭЛЕМЕНТА В РАЗДЕЛ 'ПОНРАВИЛОСЬ'
+        //Реализация добавления элемента в раздел "Понравилось"
         add_btn.forEach(item => {
-            item.addEventListener('click', () => {
-                const newTrack = new Track();
-                state.filter((el) => {
-                    if (el.id === item.id) {
-                        let imgURL = el.image[2]['#text'];
-                        if (!imgURL) {
-                            imgURL = "o.png";
-                        }
-                        //РЕАЛИЗАЦИЯ УДАЛЕНИЯ ЭЛЕМЕНТА ИЗ РАЗДЕЛА 'ПОНРАВИЛОСЬ'
-                        el.deleteId = `${el.name}${el.artist}${el.artist}`;
-                        libraryStorage.insertAdjacentHTML('beforeend', newTrack.dupTrack({ image: imgURL, treckname: el.name, author: el.artist }));
-                        let delete_btn = document.querySelectorAll('.delete_btn');
-                        delete_btn.forEach(item => {
-                            item.addEventListener('click', () => {
-                                state.filter((el) => {
-                                    if (el.id === item.id) {
-                                        const delIp = document.getElementById(el.deleteId);
-                                        delIp.remove();
-                                    }
-                                });
-                            });
-                        });
-                    }
-                });
-            });
+            item.addEventListener('click', addElementCallback(item));
         });
     }
     catch (error) {
         console.error(error);
     }
-});
+}
+search_btn.addEventListener('click', searchEvent);
