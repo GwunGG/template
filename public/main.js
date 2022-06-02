@@ -127,6 +127,11 @@ class Track {
     removeTrack(track) {
         this.track.remove();
     }
+    /**
+     * установка картинки трека
+     * @param {*} el - элемент, у которого берётся картинка
+     * @returns 
+     */
     getImage(el) {
         let imgURL = el.image[2]['#text'];
         if (!imgURL) {
